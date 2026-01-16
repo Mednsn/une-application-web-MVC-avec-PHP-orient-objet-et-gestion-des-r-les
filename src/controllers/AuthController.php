@@ -2,20 +2,21 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\Session;
 
-class AuthController extends Controller
+class AuthController
 {
-    public function login()
+    public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            Session::set('user', [
-                'email' => $_POST['email'],
-                'role'  => 'user'
-            ]);
-            header('Location: index.php?page=home');
-        }
-
-        $this->render('auth/login');
+        echo ' je suus dans home page';
     }
+    // public function login()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+    //         header('Location: index.php?page=home');
+    //     }
+
+    //     $this->render('auth/login');
+    // }
+
 }

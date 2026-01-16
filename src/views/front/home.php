@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +11,7 @@
 
 <!-- Background Image -->
 <div class="absolute inset-0 z-0">
-  <img src="stree.jpg" alt="Background" class="w-full h-full object-cover">
+  <img src="assets/images/stree.jpg" alt="Background" class="w-full h-200 object-cover">
   <div class="absolute inset-0 bg-black/40"></div>
 </div>
 

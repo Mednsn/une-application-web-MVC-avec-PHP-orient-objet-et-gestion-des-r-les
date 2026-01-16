@@ -1,22 +1,34 @@
 <?php
-namespace App\Core;
 
-use PDO;
+class Connexion{
+    private string $host;
+    private string $dbname;
+    private string $charset;
+    private string $root;
+    private string $password;
+    private ?PDO $pdo = NULL;
+    
 
-class Database
+public function __construct()
 {
-    private static ?PDO $instance = null;
+    $this->host='localhost';
+    $this->dbname='gestion_commandes';
+    $this->charset='utf8';
+    $this->root='root';
+    $this->password='';
+    
+}
 
-    public static function getInstance(): PDO
-    {
-        if (self::$instance === null) {
-            self::$instance = new PDO(
-                "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME,
-                DB_USER,
-                DB_PASS
-            );
-            self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        return self::$instance;
-    }
+public function getConnexion():PDO
+{
+    if( $this->pdo === NULL ){
+    try{
+    $dns = ("mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}");
+    $pdo = new PDO ($dns,$this->root,$this->password);
+    
+    }catch(PDOException $e){
+die('Erreur dans database' . $e->getMessage());    }
+}
+return $pdo;
+}
 }

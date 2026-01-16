@@ -1,8 +1,16 @@
 <?php
-require_once __DIR__ . '/../src/config/config.php';
-require_once __DIR__ . '/../src/core/Router.php';
 
 use App\Core\Router;
 
-$router = new Router();
-$router->run();
+require __DIR__ . '/../vendor/autoload.php';
+
+
+require_once __DIR__ . '/../src/core/Router.php';
+
+$routes = require_once __DIR__ . '/../src/Config/Routes.php';
+
+$router = new Router($routes);
+
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+$router->dispatch($url);

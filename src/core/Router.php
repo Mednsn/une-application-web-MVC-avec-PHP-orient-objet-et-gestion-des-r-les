@@ -1,21 +1,27 @@
 <?php
-namespace App\Core;
-
+namespace App\core;
 class Router
 {
-    public function run()
-    {
-        $routes = require __DIR__ . '/../config/routes.php';
-        $page = $_GET['page'] ?? 'home';
+    private array $routes;
 
-        if (!isset($routes[$page])) {
-            die('404 - Page non trouvée');
+    public function __construct(array $routes)
+    {
+        $this->routes = $routes;
+    }
+
+    public function dispatch(string $url)
+    {
+        if (!isset($this->routes[$url])) {
+            http_response_code(404);
+            echo "404 - Page not found";
+            return;
         }
 
-        $controllerName = 'App\\Controllers\\' . $routes[$page]['controller'];
-        $method = $routes[$page]['method'];
-
-        $controller = new $controllerName();
-        $controller->$method();
+        [$controller, $method] = $this->routes[$url];
+// var_dump( $controller);exit;
+        // require_once __DIR__ . '/../core/Controller.php';   
+        $controller = "\App\Controllers\\" . $controller;
+        $v = new $controller();
+        $v->$method();
     }
 }
